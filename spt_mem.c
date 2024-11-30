@@ -21,7 +21,7 @@ void stack_init(spt_stack *stack) {
 }
 
 void stack_push(spt_stack *stack, int value) {
-    spt_stack_node *new_node = (spt_stack_node *)malloc(sizeof(spt_stack_node));
+    spt_stack_node *new_node = (spt_stack_node *)spt_malloc(sizeof(spt_stack_node));
     if (new_node == NULL) {
         printf("Memory allocation failed!\n");
         return;
@@ -39,7 +39,7 @@ int stack_pop(spt_stack *stack) {
     spt_stack_node *temp = stack->top;
     int value = temp->value;
     stack->top = temp->next;
-    free(temp);
+    spt_free(temp);
     return value;
 }
 
