@@ -30,7 +30,7 @@ typedef struct spt_vec4
 
 typedef struct spt_stack_node {
     int value;
-    struct Node *next;
+    struct spt_stack_node *next;
 } spt_stack_node;
 
 typedef struct spt_stack {
@@ -72,3 +72,27 @@ int spt_write_file(const char *filename, const char *content);
 void spt_sleep(int ms);
 char *spt_curr_time();
 double spt_time_diff(clock_t start, clock_t end);
+
+// Window management
+typedef struct spt_window {
+    spt_vec2 resolution;
+    const char *title;
+    void *window_handle;
+} spt_window;
+
+typedef enum spt_window_api {
+    Default, 
+    X11, 
+    Win32
+} spt_window_api;
+
+int spt_open_window(spt_window *win, const spt_vec2 res, const char* title);
+void spt_close_window(spt_window *win);
+void spt_set_window_api(spt_window_api api);
+
+#ifdef _WIN32
+    
+#else
+    int sptx11_open_window(spt_window *win, const spt_vec2 res, const char* title);
+    void sptx11_close_window(spt_window *win);
+#endif

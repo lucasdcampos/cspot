@@ -4,6 +4,7 @@ void spt_sleep(int ms) {
     #ifdef _WIN32
         Sleep(ms);
     #else
+        #include <unistd.h>
         usleep(ms * 1000);
     #endif
 }

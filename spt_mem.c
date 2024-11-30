@@ -1,7 +1,7 @@
 #include "spot.h"
 
 void *spt_malloc(size_t size) {
-    void *ptr = malloc(size);
+    void *ptr = spt_malloc(size);
     if (!ptr) {
         fprintf(stderr, "Memory allocation failed!\n");
         exit(EXIT_FAILURE);
@@ -11,7 +11,7 @@ void *spt_malloc(size_t size) {
 
 void spt_free(void **ptr) {
     if (ptr && *ptr) {
-        free(*ptr);
+        spt_free(*ptr);
         *ptr = NULL; // Prevent dangling pointers
     }
 }
@@ -23,7 +23,7 @@ void stack_init(spt_stack *stack) {
 void stack_push(spt_stack *stack, int value) {
     spt_stack_node *new_node = (spt_stack_node *)malloc(sizeof(spt_stack_node));
     if (new_node == NULL) {
-        printf("Erro de alocação de memória!\n");
+        printf("Memory allocation failed!\n");
         return;
     }
     new_node->value = value;
@@ -33,7 +33,7 @@ void stack_push(spt_stack *stack, int value) {
 
 int stack_pop(spt_stack *stack) {
     if (stack_is_empty(stack)) {
-        printf("A pilha está vazia!\n");
+        printf("Stack is Empty!\n");
         return -1;
     }
     spt_stack_node *temp = stack->top;
@@ -45,7 +45,7 @@ int stack_pop(spt_stack *stack) {
 
 int stack_top(spt_stack *stack) {
     if (stack_is_empty(stack)) {
-        printf("A pilha está vazia!\n");
+        printf("Stack is Empty!\n");
         return -1;
     }
     return stack->top->value;
