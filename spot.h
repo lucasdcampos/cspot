@@ -7,9 +7,47 @@
 #include <ctype.h>
 #include <math.h>
 
+typedef struct spt_vec2
+{
+    float x;
+    float y;
+} spt_vec2;
+
+typedef struct spt_vec3
+{
+    float x;
+    float y;
+    float z;
+} spt_vec3;
+
+typedef struct spt_vec4
+{
+    float x;
+    float y;
+    float z;
+    float w;
+} spt_vec4;
+
+typedef struct spt_stack_node {
+    int value;
+    struct Node *next;
+} spt_stack_node;
+
+typedef struct spt_stack {
+    spt_stack_node *top;
+} spt_stack;
+
 // Memory management
 void *spt_malloc(size_t size);
 void spt_free(void **ptr);
+
+void stack_init(spt_stack *stack);
+void stack_push(spt_stack *stack, int value);
+int stack_pop(spt_stack *stack);
+int stack_top(spt_stack *stack);
+int stack_is_empty(spt_stack *stack);
+void stack_free(spt_stack *stack);
+
 
 // String manipulation
 char *spt_strcats(char *str1, char *str2);
